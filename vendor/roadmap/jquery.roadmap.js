@@ -27,8 +27,40 @@
 
 	$.fn.roadmap = function (events, opts) {
 		if (!events instanceof Array) {
-			events = [];
+			events = [
+				{
+					date: "Nov 20, 2021",
+					content: "Private Tokensale"
+				}
+			];
 		}
+
+		events = [
+			{
+				date: "Nov 20, 2021",
+				content: `<p>Private Presale</p>`
+			},
+			{
+				date: "Dec 1, 2021",
+				content: `<p>Public Presale</p>`
+			},
+			{
+				date: "Dec 5, 2021",
+				content: `<p>Pancakeswap Launch</p>`
+			},
+			{
+				date: "Jan, 2022",
+				content: `<p>Marketing, CMC and CG Listing</p>`
+			},
+			{
+				date: "Feb, 2022",
+				content: `<p>Staking Program</p>`
+			},
+			{
+				date: "March, 2022 and beyond",
+				content: `<p>Marketplace, Gaming, Wallet</p>`
+			}
+		];
 
 		var defaults = {
 			slide: 1,

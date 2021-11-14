@@ -1,10 +1,3 @@
-// js Document
-
-    // Created on : 05/12/2018. 
-    // Description: cryto - Bitcoin & Cryptocurrency Landing Page HTML Template.
-    // Version    : 1.0.
-    // Author     : @creativegigs.
-
 
 (function($) {
     "use strict";
