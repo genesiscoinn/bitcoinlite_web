@@ -1,8 +1,8 @@
 window.addEventListener('load', async () => {
     var account;
-    var newContractAddress = "0x4d27F506CCF598eDC1f4B10747De22dCD672eA76";
+    var newContractAddress = "0x92372C1B74979984CFbdf5644031aBA77E89C283";
     var oldContractAddress = "0xF9B350DE20feb176ad055c79Ce4Fd6be6Fb04D69";
-    var icoContractAddress = "0x0E6Fd16878672962FCDb48Aa9E409e9C6EFC9309";
+    var icoContractAddress = "0x461b1F0200F423e1BDaf73F153D74d7d9db532ea";
     var newContract;
     var oldContract;
     var icoContract;
@@ -285,7 +285,7 @@ window.addEventListener('load', async () => {
 		}
 	];
     
-	var newAbi = [
+	var newAbi =  [
 		{
 			"inputs": [],
 			"stateMutability": "nonpayable",
@@ -562,7 +562,6 @@ window.addEventListener('load', async () => {
 			"type": "function"
 		}
 	];
-
     var icoAbi = [
 		{
 			"inputs": [
@@ -577,14 +576,14 @@ window.addEventListener('load', async () => {
 					"type": "address"
 				},
 				{
-					"internalType": "uint256",
+					"internalType": "uint8",
 					"name": "private_rate_",
-					"type": "uint256"
+					"type": "uint8"
 				},
 				{
-					"internalType": "uint256",
+					"internalType": "uint8",
 					"name": "public_rate_",
-					"type": "uint256"
+					"type": "uint8"
 				},
 				{
 					"internalType": "uint8",
@@ -597,9 +596,19 @@ window.addEventListener('load', async () => {
 					"type": "uint8"
 				},
 				{
-					"internalType": "uint8",
+					"internalType": "uint32",
 					"name": "multiplier_",
-					"type": "uint8"
+					"type": "uint32"
+				},
+				{
+					"internalType": "uint256",
+					"name": "minLimit_",
+					"type": "uint256"
+				},
+				{
+					"internalType": "uint256",
+					"name": "maxLimit_",
+					"type": "uint256"
 				}
 			],
 			"stateMutability": "nonpayable",
@@ -654,9 +663,9 @@ window.addEventListener('load', async () => {
 			"name": "_multiplier",
 			"outputs": [
 				{
-					"internalType": "uint8",
+					"internalType": "uint32",
 					"name": "",
-					"type": "uint8"
+					"type": "uint32"
 				}
 			],
 			"stateMutability": "view",
@@ -786,14 +795,14 @@ window.addEventListener('load', async () => {
 		{
 			"inputs": [
 				{
-					"internalType": "uint256",
+					"internalType": "uint8",
 					"name": "private_rate_",
-					"type": "uint256"
+					"type": "uint8"
 				},
 				{
-					"internalType": "uint256",
+					"internalType": "uint8",
 					"name": "public_rate_",
-					"type": "uint256"
+					"type": "uint8"
 				}
 			],
 			"name": "changeRate",
@@ -883,6 +892,11 @@ window.addEventListener('load', async () => {
 					"internalType": "uint8",
 					"name": "tokenMigrateDecimal_",
 					"type": "uint8"
+				},
+				{
+					"internalType": "uint32",
+					"name": "multiplier_",
+					"type": "uint32"
 				}
 			],
 			"name": "prepareMigration",
@@ -925,6 +939,24 @@ window.addEventListener('load', async () => {
 				}
 			],
 			"name": "removeWhitelist",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "minLimit_",
+					"type": "uint256"
+				},
+				{
+					"internalType": "uint256",
+					"name": "maxLimit_",
+					"type": "uint256"
+				}
+			],
+			"name": "setBuyLimit",
 			"outputs": [],
 			"stateMutability": "nonpayable",
 			"type": "function"
@@ -980,7 +1012,7 @@ window.addEventListener('load', async () => {
 			"type": "receive"
 		}
 	];
-
+	
     if (typeof web3 !== 'undefined') {
         web3 = new Web3(web3.currentProvider);
         activate();
@@ -1007,9 +1039,18 @@ window.addEventListener('load', async () => {
 		if(await icoContract.methods.isPresaleOpen().call()){
 			$('#opensale').removeAttr('hidden');
 			$('#buy').html('Buy');
+			$('#towhitelist').attr('hidden', true);
+			await icoContract.methods._whitelists(account).call().then(function(state){
+				if(!state || state == 'false'){
+					$('#whitelist-error').removeAttr('hidden');
+					$('#opensale').attr('hidden', true);
+				}
+			})
 		} else {
+			$('#whitelist-error').attr('hidden', true);
 			$('#opensale').attr('hidden', true);
 			$('#buy').html('Whitelist');
+			$('#towhitelist').removeAttr('hidden');
 		}
 
 		if(await icoContract.methods._whitelists(account).call()){
@@ -1042,7 +1083,7 @@ window.addEventListener('load', async () => {
       e.preventDefault();
       activate();
     })
-	
+
 	window.ethereum.on('chainChanged', async (chainId) => {
 		activate();
 	})
