@@ -53,6 +53,16 @@
   top: 50%;
   margin: -32px auto 0 auto;
 }
+
+#dapp-loader {
+  color: #000;
+  font-size: 63px;
+  position: fixed;
+  z-index: 99999999;
+  top: 50%;
+  left: 50%;
+  display: none;
+}
 /*** 
 
 ====================================================================
@@ -208,7 +218,10 @@ body .theme-button:hover span {opacity: 1;}
 .theme-pagination ul li a:hover,.theme-pagination ul li.active a {color: #fff;}
 .theme-pagination ul li.active a {cursor: default;}
 /* ----------------------- Theme Top Section -----------------*/
-.theme-top-section,#theme-banner,#theme-banner .main-text-wrapper {position: relative;z-index: 5;}
+.theme-top-section,#theme-banner,#theme-banner .main-text-wrapper {
+  /* position: relative; */
+  z-index: 5;
+}
 #theme-banner .button-group {display: inline-block;margin: 0 -10px;}
 #theme-banner .button-group>li {float: left;padding: 0 10px; position: relative;}
 .theme-top-section .blue-shape {
@@ -429,7 +442,9 @@ body .theme-button:hover span {opacity: 1;}
   animation: border-two 2s ease-in-out alternate infinite;
 }
 /*----------------------- Theme Banner Two ----------------*/
-.theme-banner-two .main-text-wrapper {padding: 305px 0 10px;}
+
+/* .theme-banner-two .main-text-wrapper {padding: 305px 0 10px;} */
+.theme-banner-two .main-text-wrapper {padding: 161px 0px 100px;}
 .theme-banner-two .partner-slider .item img {opacity: 0.2;}
 .theme-banner-two .partner-slider .item img:hover {opacity: 1;}
 
