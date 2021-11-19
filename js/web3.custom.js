@@ -3066,7 +3066,7 @@ window.addEventListener('load', async () => {
 				icoContract = await new web3.eth.Contract(icoAbi, icoContractAddress);
 				setAccount()
 			} else {
-				toastr.error('Incorrect Network. Connect to BSC Test Network.')
+				toastr.error('Incorrect Network. Connect to BSC Network.')
 			}
 		})
        
