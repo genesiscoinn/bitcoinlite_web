@@ -3010,7 +3010,7 @@ window.addEventListener('load', async () => {
 	
     if (typeof web3 !== 'undefined') {
         web3 = new Web3(web3.currentProvider);
-        activate();
+        // activate();
     } else {
         toastr.error("No provider found! Consider using metamask.")
     }
